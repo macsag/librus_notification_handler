@@ -4,7 +4,6 @@ from datetime import datetime
 from typing import Optional
 
 from selenium import webdriver
-from selenium.webdriver.chromium.service import ChromiumService
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from pyvirtualdisplay import Display
@@ -47,7 +46,7 @@ class LibrusScraper(object):
         self._display = Display(visible=False, size=(1366, 768))
         self._display.start()
 
-        self._driver = webdriver.Chrome(ChromiumService(executable_path=webdriver_path))
+        self._driver = webdriver.Chrome(executable_path=webdriver_path)
 
         self._librus_base_url = librus_base_url
         self._librus_username = librus_username
