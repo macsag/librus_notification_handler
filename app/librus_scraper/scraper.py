@@ -4,8 +4,10 @@ from datetime import datetime
 from typing import Optional
 
 from selenium import webdriver
+from selenium.webdriver.chromium.service import ChromiumService
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from pyvirtualdisplay import Display
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +44,10 @@ class LibrusScraper(object):
                  librus_username: str,
                  librus_password: str,
                  last_checked_message_sent_filename):
-        self._driver = webdriver.Chrome(executable_path=webdriver_path)
+        self._display = Display(visible=False, size=(1366, 768))
+        self._display.start()
+
+        self._driver = webdriver.Chrome(ChromiumService(executable_path=webdriver_path))
 
         self._librus_base_url = librus_base_url
         self._librus_username = librus_username
@@ -182,5 +187,6 @@ class LibrusScraper(object):
         logger.info(f'{len(new_messages)} new message(s) found.')
 
         self._driver.close()
+        self._display.stop()
 
         return new_messages

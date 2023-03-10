@@ -39,6 +39,8 @@ else:
 
 load_dotenv(dotenv_file)
 
+webdriver_path = os.getenv('WEBDRIVER_PATH')
+
 librus_base_url = os.getenv('LIBRUS_BASE_URL')
 librus_username = os.getenv('LIBRUS_USERNAME')
 librus_password = os.getenv('LIBRUS_PASSWORD')
@@ -55,7 +57,7 @@ notification_recipient = os.getenv('NOTIFICATION_RECIPIENT')
 
 logger.info(f'Starting main loop - will check for new messages every {message_check_interval} minutes...')
 while True:
-    scraper = LibrusScraper(r'C:\WebDriver\bin\chromedriver.exe',
+    scraper = LibrusScraper(webdriver_path,
                             librus_base_url,
                             librus_username,
                             librus_password,
